@@ -1,0 +1,5 @@
+﻿# Node.js dependencies
+node_modules
+
+# Environment variables (YOUR SECRETS)
+.env
