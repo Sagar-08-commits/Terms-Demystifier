@@ -1,0 +1,31 @@
+# Node dependencies (if using npm/yarn)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build outputs
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDE/editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment / secret files
+.env
+*.local
+config/*.secret.js
+options.js # if you keep API keys here and don't want them in repo
+
+# Misc
+*.bak
+*.tmp

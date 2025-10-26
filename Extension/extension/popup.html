@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Terms Demystifier</title>
+  <style>
+    body {
+      width: 280px;
+      font-family: Arial, sans-serif;
+      padding: 10px;
+      /* --- UPDATED: Popup background color --- */
+      background-color: #1a1a1a; /* Darker background */
+      color: #e0e0e0; /* Light text for dark background */
+      
+      /* --- UPDATED: Rounded popup corners --- */
+      border-radius: 12px; /* Rounded corners for the entire popup */
+      overflow: hidden; /* Ensures content respects border-radius */
+    }
+    
+    h3 {
+      color: #ffffff; /* White title for contrast */
+      text-align: center;
+      margin-top: 5px; /* Adjust top margin */
+      margin-bottom: 15px; /* Space after title */
+    }
+
+    p {
+        margin-bottom: 15px; /* Consistent spacing */
+        text-align: center;
+    }
+
+    .action-button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: bold;
+      
+      /* Prismarine Blue styling */
+      background-color: #007bff; /* A vibrant blue */
+      color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.2s ease, box-shadow 0.2s ease;
+
+      /* --- UPDATED: Rounded buttons like Google's --- */
+      border-radius: 20px; /* More aggressive rounding for a pill-like shape */
+    }
+    .action-button:hover {
+      background-color: #0056b3; /* Darker blue on hover */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    }
+    .action-button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    #status {
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #b0b0b0; /* Lighter grey for status text */
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h3>Terms Demystifier</h3>
+  <p>Choose an analysis option:</p>
+
+  <button id="analyzeCurrentButton" class="action-button">Analyze Current Page</button>
+  <button id="analyzeLinkedButton" class="action-button">Find & Analyze Linked Policies</button>
+  
+  <div id="status"></div>
+  <script src="popup.js"></script>
+</body>
+</html>

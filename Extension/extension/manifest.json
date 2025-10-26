@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Terms Demystifier",
+  "version": "1.0",
+  "description": "Summarizes legal text on websites using GenAI.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png"
+    }
+  },
+  "permissions": ["activeTab", "scripting", "storage", "identity"],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*",
+    "https://testdemyst-production.up.railway.app/*",
+    "https://dev-mxp3lipggh7abw8f.us.auth0.com/*"  
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
