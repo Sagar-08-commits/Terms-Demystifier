@@ -34,7 +34,7 @@ The backend server handles all AI processing and database operations.
     npm install
     ```
 3.  **Create an environment file:**
-    Create a `.env` file in the `/Dashboard/backend` root and add your secret keys.
+    Create a `.env` file in the `/Dashboard/backend` root and add your secret keys. The `.env.example` file can be taken for reference.
 
     ```dotenv
     # .env
@@ -48,16 +48,15 @@ The backend server handles all AI processing and database operations.
     # --- Auth0 Details ---
 
     # From your Auth0 API settings (the "Identifier")
-    AUTH0_AUDIENCE=[https://your-api-identifier.com](https://your-api-identifier.com)
+    AUTH0_AUDIENCE=https://your-api-identifier.com
 
     # From your Auth0 Application settings (the "Domain"), prefixed with https://
-    # Example: [https://your-tenant.us.auth0.com/](https://your-tenant.us.auth0.com/)
-    AUTH0_ISSUER_BASE_URL=[https://your-auth0-tenant.us.auth0.com/](https://your-auth0-tenant.us.auth0.com/)
+    AUTH0_ISSUER_BASE_URL=https://your-auth0-tenant.us.auth0.com/
     ```
 
 4.  **Run the server:**
     ```bash
-    npm start
+    node server.js
     ```
     The API will typically be running on `http://localhost:3000`.
 
@@ -97,8 +96,10 @@ This project's original Auth0 configuration is tied to its specific developer's 
     -   Go to `Applications` -> `Applications` and select the application you are using for this project.
     -   Go to the `Settings` tab.
     -   **Add your extension's URL to the following fields:**
-        -   **Allowed Callback URLs:** `chrome-extension://YOUR-EXTENSION-ID-HERE/callback`
-        -   **Allowed Web Origins:** `chrome-extension://YOUR-EXTENSION-ID-HERE`
+        -   **Allowed Callback URLs:** `http://localhost:5173/dashboard, https://YOUR-EXTENSION-ID.chromiumapp.org`
+        -   **Allowed Logout URLs:** `http://localhost:5173/login`
+        -   **Allowed Web Origins:** `http://localhost:5173, https://YOUR-EXTENSION-ID.chromiumapp.org, chrome-extension://YOUR-EXTENSION-ID-HERE`
+        -   **Allowed Origins (CORS)** `chrome-extension://YOUR-EXTENSION-ID-HERE`
     -   Replace `YOUR-EXTENSION-ID-HERE` with the ID you copied in step 1.
 
 3.  **Update Extension Code (if needed):**
