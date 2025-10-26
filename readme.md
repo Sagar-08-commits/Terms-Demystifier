@@ -10,16 +10,16 @@ The system uses a Node.js/Express backend to securely interface with the Gemini 
 
 This repository is a monorepo containing two main projects in distinct folders:
 
-- `/Web-extension`: Contains the source code for the Chrome browser extension (manifest, content scripts, background scripts, and popup UI).
-- `/Dashboard`: This folder contains the complete web application, which is split into two parts:
-  - `/Dashboard/backend`: Contains the source code for the Node.js, Express, and MongoDB backend server that powers both the extension and the web app.
-  - `/Dashboard/frontend`: Contains the source code for the frontend web dashboard (likely React/Vite), where users can review and manage their saved analyses.
+-   `/Extension`: Contains the source code for the Chrome browser extension (manifest, content scripts, background scripts, and popup UI).
+-   `/Dashboard`: This folder contains the complete web application, which is split into two parts:
+    -   `/Dashboard/backend`: Contains the source code for the Node.js, Express, and MongoDB backend server that powers both the extension and the web app.
+    -   `/Dashboard/frontend`: Contains the source code for the frontend web dashboard (likely React/Vite), where users can review and manage their saved analyses.
 
 You will need to run all three parts (backend, frontend, and extension) concurrently.
 
 ## 3. Setup and Running the Code
 
-To run this project, you must set up and run the backend API first, followed by the frontend and extension.
+To run this project, you must first set up and run the backend API4, followed by the frontend and extension.
 
 ### A. Backend API (`/Dashboard/backend`)
 
@@ -39,12 +39,20 @@ The backend server handles all AI processing and database operations.
     ```dotenv
     # .env
 
+    # Your Gemini API Key
     GEMINI_API_KEY=your_gemini_api_key_here
+
+    # Your MongoDB connection string
     MONGO_URI=your_mongodb_connection_string
 
-    # Auth0 Configuration
-    AUTH0_DOMAIN=your-auth0-tenant.us.auth0.com
-    AUTH0_AUDIENCE=https://your-api-identifier.com
+    # --- Auth0 Details ---
+
+    # From your Auth0 API settings (the "Identifier")
+    AUTH0_AUDIENCE=[https://your-api-identifier.com](https://your-api-identifier.com)
+
+    # From your Auth0 Application settings (the "Domain"), prefixed with https://
+    # Example: [https://your-tenant.us.auth0.com/](https://your-tenant.us.auth0.com/)
+    AUTH0_ISSUER_BASE_URL=[https://your-auth0-tenant.us.auth0.com/](https://your-auth0-tenant.us.auth0.com/)
     ```
 
 4.  **Run the server:**
@@ -53,16 +61,16 @@ The backend server handles all AI processing and database operations.
     ```
     The API will typically be running on `http://localhost:3000`.
 
-### B. Chrome Extension (`/Web-extension`)
+### B. Chrome Extension (`/Extension`)
 
 The extension extracts text from the user's active tab and communicates with the backend.
 
 1.  **Ensure the Backend API is running.**
 2.  **Load the extension in Chrome:**
-    - Open Chrome and navigate to `chrome://extensions`.
-    - Enable "Developer mode" (usually a toggle in the top-right corner).
-    - Click "Load unpacked".
-    - Select the `/Web-extension` folder from this repository.
+    -   Open Chrome and navigate to `chrome://extensions`.
+    -   Enable "Developer mode" (usually a toggle in the top-right corner).
+    -   Click "Load unpacked".
+    -   Select the `/Extension/extension` folder from this repository.
 3.  **Configure API Endpoint (if needed):**
     You may need to update the fetch URL in the extension's scripts (e.g., `background.js`) to point to your running backend (e.g., `http://localhost:3000/api/analyze`).
 
@@ -78,23 +86,23 @@ This project's original Auth0 configuration is tied to its specific developer's 
 
 1.  **Get Your Local Extension ID:**
 
-    - Load the extension locally using the steps above.
-    - Go to your `chrome://extensions` page.
-    - Find the "Terms Demystifier" card.
-    - Copy the ID (it will be a long string of letters).
+    -   Load the extension locally using the steps above.
+    -   Go to your `chrome://extensions` page.
+    -   Find the "Terms Demystifier" card.
+    -   Copy the ID (it will be a long string of letters).
 
 2.  **Configure Auth0:**
 
-    - Log in to your [Auth0 Dashboard](https://manage.auth0.com/).
-    - Go to `Applications` -> `Applications` and select the application you are using for this project.
-    - Go to the `Settings` tab.
-    - **Add your extension's URL to the following fields:**
-      - **Allowed Callback URLs:** `chrome-extension://YOUR-EXTENSION-ID-HERE/callback`
-      - **Allowed Web Origins:** `chrome-extension://YOUR-EXTENSION-ID-HERE`
-    - Replace `YOUR-EXTENSION-ID-HERE` with the ID you copied in step 1.
+    -   Log in to your [Auth0 Dashboard](https://manage.auth0.com/).
+    -   Go to `Applications` -> `Applications` and select the application you are using for this project.
+    -   Go to the `Settings` tab.
+    -   **Add your extension's URL to the following fields:**
+        -   **Allowed Callback URLs:** `chrome-extension://YOUR-EXTENSION-ID-HERE/callback`
+        -   **Allowed Web Origins:** `chrome-extension://YOUR-EXTENSION-ID-HERE`
+    -   Replace `YOUR-EXTENSION-ID-HERE` with the ID you copied in step 1.
 
 3.  **Update Extension Code (if needed):**
-    - Ensure the `auth0-config.js` (or similar, referring to your `background.js`) file in the `/extension` folder uses your Auth0 Application's Domain and Client ID.
+    -   Ensure the `auth0-config.js` (or similar, referring to your `background.js`) file in the `/extension` folder uses your Auth0 Application's Domain and Client ID.
 
 ---
 
@@ -116,8 +124,18 @@ The web dashboard provides a UI for viewing saved analyses. (These instructions 
     ```dotenv
     # .env.local
 
+    # --- Auth0 Details ---
+
+    # From your Auth0 Application settings
     VITE_AUTH0_DOMAIN=your-auth0-tenant.us.auth0.com
     VITE_AUTH0_CLIENT_ID=your_auth0_spa_client_id
+
+    # From your Auth0 API settings (the "Identifier")
+    VITE_AUTH0_AUDIENCE=[https://your-api-identifier.com](https://your-api-identifier.com)
+
+    # --- API ---
+
+    # The URL of your running backend server
     VITE_API_URL=http://localhost:3000
     ```
 
@@ -126,4 +144,3 @@ The web dashboard provides a UI for viewing saved analyses. (These instructions 
     npm run dev
     ```
     The web app will typically be available at `http://localhost:5173`.
-
