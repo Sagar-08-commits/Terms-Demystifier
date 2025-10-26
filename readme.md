@@ -19,7 +19,7 @@ You will need to run all three parts (backend, frontend, and extension) concurre
 
 ## 3. Setup and Running the Code
 
-To run this project, you must first set up and run the backend API4, followed by the frontend and extension.
+To run this project, you must first set up and run the backend API, followed by the frontend and extension.
 
 ### A. Backend API (`/Dashboard/backend`)
 
